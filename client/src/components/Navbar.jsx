@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -74,7 +74,9 @@ const Navbar = () => {
   // const handleLogout = () => {
   //   dispatch({ type: "LOGOUT" });
   // };
-  const quantity = useSelector(state=>state.cart.quantity)
+  const quantity = useSelector(state=>state.cart.quantity);
+  const isLogIn = useSelector(state=>state.user.isLoggedin);
+  console.log("log",isLogIn);
   return (
     <Container>
       <Wrapper>
@@ -89,9 +91,9 @@ const Navbar = () => {
           <Logo>LAMA.</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>LOGOUT</MenuItem>
+        <Link to='/register'><MenuItem>{isLogIn?"":"REGISTER"}</MenuItem></Link>
+          <Link to='/login'><MenuItem>{isLogIn?"":"SignIn"}</MenuItem></Link>
+          <Link to='/logout'><MenuItem>{isLogIn?"Logout":""}</MenuItem></Link>
 
           <Link to="/cart">
           <MenuItem>
