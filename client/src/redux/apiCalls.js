@@ -11,6 +11,7 @@ export const login = async (dispatch, user) => {
   }
 };
 export const logout = async(dispatch)=>{
-  await publicRequest.get("auth/logout");
-  dispatch(logoutSuccess());
+  const res = await publicRequest.get("auth/logout");
+  console.log("flag",res.data);
+  dispatch(logoutSuccess(res.data));
 }

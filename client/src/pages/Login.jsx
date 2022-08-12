@@ -97,7 +97,7 @@ const Login = () => {
           </Button>
           {error && <Error>Something went wrong...</Error>}
           <Link className="NavLink" to='/forgetPassword'><span> Forget Password</span></Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link to='/register'>CREATE A NEW ACCOUNT</Link>
           
         </Form>
       </Wrapper>

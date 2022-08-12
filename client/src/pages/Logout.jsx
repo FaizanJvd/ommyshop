@@ -8,10 +8,11 @@ const Logout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     logout(dispatch);
-    persistor.pause();
-    persistor.flush().then(() => {
-      return persistor.purge();
-    });
+    // localStorage.clear();
+    // persistor.pause();
+    // persistor.flush().then(() => {
+    //   return persistor.purge();
+    // });
     navigate.push("/");
   }, []);
   return <div></div>;

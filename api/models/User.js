@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    verified:{type:Boolean},
     img: { type: String },
   },
   { timestamps: true }

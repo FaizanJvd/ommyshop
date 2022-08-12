@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
+import { ToastContainer, toast } from "material-react-toastify";
+import "material-react-toastify/dist/ReactToastify.css";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -55,23 +59,78 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useHistory();
+  const registerUser = async (e) => {
+    e.preventDefault();
+    const res = await publicRequest.post("/auth/register", {
+      username,
+      password,
+      email,
+      confirmPassword,
+    });
+    console.log(res);
+    if (res) {
+      let msg = res.data;
+      toast.success(msg);
+      setTimeout(() => {
+        navigate.push("/login");
+      }, 2000);
+    } else {
+      toast.error("Not Register");
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input type="text" placeholder="name" required />
+          <Input type="text" placeholder="last name" required />
+          <Input
+            type="text"
+            placeholder="username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="email"
+            placeholder="email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="confirm password"
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={registerUser}>CREATE</Button>
         </Form>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Wrapper>
     </Container>
   );

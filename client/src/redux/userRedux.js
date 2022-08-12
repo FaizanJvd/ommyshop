@@ -12,6 +12,7 @@ const userSlice = createSlice({
       state.isFetching = true;
     },
     loginSuccess: (state, action) => {
+      console.log("called");
       state.isFetching = false;
       state.currentUser = action.payload;
       state.isLoggedin = true;
@@ -20,9 +21,10 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-    logoutSuccess:(state)=>{
-      state.isLoggedin = false;
+    logoutSuccess:(state,action)=>{
+      state.isLoggedin = action.payload;
       state.currentUser = null;
+      // localStorage.clear();
     },
   },
 });

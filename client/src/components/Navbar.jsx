@@ -75,8 +75,8 @@ const Navbar = () => {
   //   dispatch({ type: "LOGOUT" });
   // };
   const quantity = useSelector(state=>state.cart.quantity);
-  const isLogIn = useSelector(state=>state.user.isLoggedin);
-  console.log("log",isLogIn);
+  const {isLoggedin} = useSelector(state=>state.user);
+  console.log("navlofg",isLoggedin);
   return (
     <Container>
       <Wrapper>
@@ -91,9 +91,9 @@ const Navbar = () => {
           <Logo>LAMA.</Logo>
         </Center>
         <Right>
-        <Link to='/register'><MenuItem>{isLogIn?"":"REGISTER"}</MenuItem></Link>
-          <Link to='/login'><MenuItem>{isLogIn?"":"SignIn"}</MenuItem></Link>
-          <Link to='/logout'><MenuItem>{isLogIn?"Logout":""}</MenuItem></Link>
+        <Link to='/register'><MenuItem>{isLoggedin?"":"REGISTER"}</MenuItem></Link>
+          <Link to='/login'><MenuItem>{isLoggedin?"":"SignIn"}</MenuItem></Link>
+          <Link to='/logout'><MenuItem>{isLoggedin?"Logout":""}</MenuItem></Link>
 
           <Link to="/cart">
           <MenuItem>
